@@ -8,25 +8,14 @@
         
         <div class="row" v-if="products.length>0">
             <div class="col-lg-3 col-md-4 col-sm-6 col-12" v-for="(product,index) in products" :key="index">
-                <div class="card my-3">
-                    <img :src="product.image" class="card-img-top w-50 mx-auto p-3" alt="">
-                    <div class="card-body">
-                        <h5 class="card-title">$ {{product.price}}</h5>
-                        <p class="card-text">{{product.title}}</p>
-                        <div class="d-flex justify-content-evenly">
-                            <router-link :to="{ name: 'shopdetail', params: { id: product.id }}">
-                                <button class="btn btn-primary">View</button>
-                            </router-link>
-                            <button class="btn btn-primary">Add To Cart</button>
-                        </div>
-                    </div>
-                </div>
+               <SingleItem :product="product" parent="Shop"></SingleItem>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+    import SingleItem from '../components/SingleItem.vue';
     const axios = require('axios').default;
     export default {
         name: 'ShopView',
@@ -46,7 +35,10 @@
                         this.products = response.data
                     })
             }
-        }
+        },
+        components:{
+            SingleItem
+        },
     }
 </script>
 
